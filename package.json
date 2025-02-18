@@ -1,0 +1,28 @@
+{
+  "name": "CODIUX",
+  "version": "2.0.0",
+  "description": "CODIUX - Vue Nuxt It Solutions Services Company",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/auth-next": "5.0.0-1667386184.dfbbb54",
+    "@nuxtjs/axios": "^5.13.6",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "form-data": "^4.0.1",
+    "jquery": "^3.7.1",
+    "nuxt": "^2.0.0",
+    "popper.js": "^1.16.1",
+    "vue": "^2.0.8",
+    "vue-select": "^3.20.3",
+    "vue-server-renderer": "^2.6.12",
+    "vue-template-compiler": "^2.6.12",
+    "vuex": "^4.1.0"
+  }
+}
