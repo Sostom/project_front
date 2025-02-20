@@ -102,8 +102,8 @@ export default {
           autoFetch: true
         },
         endpoints: {
-          login: { url: '/login', method: 'post', propertyName: 'access_token' },
-          user: { url: '/user', method: 'get', propertyName: 'content' },
+          login: { url: 'https://projectapi-production-4fc2.up.railway.app/api/login', method: 'post', propertyName: 'access_token' },
+          user: { url: 'https://projectapi-production-4fc2.up.railway.app/api/user', method: 'get', propertyName: 'content' },
           logout: false
         },
       },
