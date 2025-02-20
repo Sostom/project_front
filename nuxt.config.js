@@ -111,7 +111,7 @@ export default {
   },
 
   axios: {
-    baseURL: "http://localhost:8000/api",
+    baseURL: "https://projectapi-production-4fc2.up.railway.app/api",
     credentials:true
   },
 
