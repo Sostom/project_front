@@ -67,6 +67,9 @@
         }
       },
 
+      async mounted() {
+        console.log("Nuxt BaseURL:", this.$axios.defaults.baseURL);
+      },
 
       methods: {
         viewPassword(event){

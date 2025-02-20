@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "https://projectapi-production-4fc2.up.railway.app/api",
+    "baseUrl": "",
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./*"],
