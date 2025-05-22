@@ -1,7 +1,7 @@
 {
-  "name": "CODIUX",
+  "name": "MiMob",
   "version": "2.0.0",
-  "description": "CODIUX - Vue Nuxt It Solutions Services Company",
+  "description": "MiMob - Plateforme d'interractions immobilières",
   "author": "",
   "private": true,
   "scripts": {

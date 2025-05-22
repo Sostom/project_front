@@ -238,6 +238,30 @@
                 <button :class="{ 'btn-loading-admin': loading }" type="submit" class="custom-btn btn-5" @click.prevent="submit()">Enregistrer <span v-if="loading" class="spinner-admin"></span></button>
               </div>
               
+  <div class="image-uploader-container">
+    <div 
+      class="image-upload-area" 
+      :style="backgroundStyle" 
+      @click="triggerFileInput"
+    >
+      <div v-if="!previewImage" class="upload-placeholder">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="78" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="upload-icon">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <p class="upload-text">Cliquez pour sélectionner une image</p>
+      </div>
+    </div>
+    <input 
+      type="file" 
+      ref="fileInput" 
+      class="file-input" 
+      accept="image/*" 
+      @change="handleFileChange" 
+    />
+  </div>
+              
         </form>
       </div>
     </div>
@@ -254,6 +278,7 @@ import "vue-select/dist/vue-select.css";
         },
         data() {
           return {
+            previewImage: null,
             loading: false, 
             form: {
               type: "",
@@ -285,8 +310,30 @@ import "vue-select/dist/vue-select.css";
           };
         },
 
+        computed: {
+          backgroundStyle() {
+            if (this.previewImage) {
+              return {
+                backgroundImage: `url(${this.previewImage})`,
+                height: this.height
+              }
+            } else if (this.defaultBackground) {
+              return {
+                backgroundImage: `url(${this.defaultBackground})`,
+                height: this.height
+              }
+            }
+            return {
+              height: this.height
+            }
+          }
+        },
               
         mounted() {
+          // Si une valeur initiale est fournie et c'est une URL
+          if (this.value && typeof this.value === 'string') {
+            this.previewImage = this.value
+          }
           //récupère les differents types
           this.getVilles();
         },
@@ -405,9 +452,85 @@ import "vue-select/dist/vue-select.css";
              } )
             
         },
+
+    triggerFileInput() {
+      this.$refs.fileInput.click()
+    },
+    
+    handleFileChange(event) {
+      const file = event.target.files[0]
+      if (!file) return
+      
+      // Créer une URL pour prévisualiser l'image
+      this.previewImage = URL.createObjectURL(file)
+      
+      // Émettre l'événement avec le fichier sélectionné
+      this.$emit('input', file)
+      this.$emit('change', file)
+      },
+  },
+    watch: {
+      value(newVal) {
+        if (!newVal) {
+          this.previewImage = null
+          if (this.$refs.fileInput) {
+            this.$refs.fileInput.value = ''
+          }
+        } else if (typeof newVal === 'string' && newVal !== this.previewImage) {
+          this.previewImage = newVal
         }
+      }
+  
+    }
   }
 </script>
 
 <style scoped>
+.image-uploader-container {
+  width: 60%;
+  margin: 20px 20%;
+}
+
+.image-upload-area {
+  width: 100%;
+  background-color: #f5f5f5;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.image-upload-area:hover {
+  border-color: #666;
+  background-color: #eaeaea;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.upload-icon {
+  margin-bottom: 1rem;
+  color: #666;
+}
+
+.upload-text {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.file-input {
+  display: none;
+}
 </style>
